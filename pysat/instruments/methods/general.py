@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Provides generalized routines for integrating instruments into pysat.
-"""
+"""Provide generalized routines for integrating instruments into pysat."""
 
 import datetime as dt
 import numpy as np
@@ -12,7 +11,7 @@ logger = pysat.logger
 
 
 def is_daily_file_cadence(file_cadence):
-    """ Evaluate file cadence to see if it is daily or greater than daily
+    """Evaluate file cadence to see if it is daily or greater than daily.
 
     Parameters
     ----------
@@ -103,7 +102,6 @@ def list_files(tag=None, inst_id=None, data_path=None, format_str=None,
                                        supported_tags=supported_tags)
 
     """
-
     # Test the input
     if data_path is None:
         estr = ''.join(('A directory must be passed to the loading routine ',
@@ -147,7 +145,7 @@ def list_files(tag=None, inst_id=None, data_path=None, format_str=None,
 
 
 def convert_timestamp_to_datetime(inst, sec_mult=1.0, epoch_name='Epoch'):
-    """Use datetime instead of timestamp for Epoch
+    """Use datetime instead of timestamp for Epoch.
 
     Parameters
     ----------
@@ -159,7 +157,6 @@ def convert_timestamp_to_datetime(inst, sec_mult=1.0, epoch_name='Epoch'):
         variable name for instrument index (default='Epoch')
 
     """
-
     inst.data[epoch_name] = pds.to_datetime(
         [dt.datetime.utcfromtimestamp(int(np.floor(epoch_time * sec_mult)))
          for epoch_time in inst.data[epoch_name]])
@@ -168,7 +165,7 @@ def convert_timestamp_to_datetime(inst, sec_mult=1.0, epoch_name='Epoch'):
 
 
 def remove_leading_text(inst, target=None):
-    """Removes leading text on variable names
+    """Remove leading text on variable names.
 
     Parameters
     ----------
@@ -178,7 +175,6 @@ def remove_leading_text(inst, target=None):
         Leading string to remove. If none supplied, returns unmodified
 
     """
-
     if target is None:
         return
     elif isinstance(target, str):
@@ -212,7 +208,7 @@ def remove_leading_text(inst, target=None):
 
 
 def filename_creator(value, format_str=None, start_date=None, stop_date=None):
-    """Creates filenames as needed to support use of generated pysat data sets
+    """Create filenames as needed to support use of generated pysat data sets.
 
     Parameters
     ----------
@@ -238,7 +234,6 @@ def filename_creator(value, format_str=None, start_date=None, stop_date=None):
         slated for a future release.
 
     """
-
     estr = ''.join(('This feature has not been implemented yet and is here ',
                     'to support experimentation by the pysat team. If you are ',
                     'here intentionally, please contact the pysat developers ',
@@ -251,7 +246,7 @@ def filename_creator(value, format_str=None, start_date=None, stop_date=None):
 
 
 def load_csv_data(fnames, read_csv_kwargs=None):
-    """Load CSV data from a list of files into a single DataFrame
+    """Load CSV data from a list of files into a single DataFrame.
 
     Parameters
     ----------

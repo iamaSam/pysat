@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+"""Provide generalized routines for testing instruments in pysat."""
+
 import datetime as dt
 import numpy as np
 import os
@@ -18,7 +21,7 @@ with pysat.utils.NetworkLock(os.path.join(pysat.here, 'citation.txt'), 'r') as \
 
 
 def init(self, test_init_kwarg=None):
-    """Initializes the Instrument object with instrument specific values.
+    """Initialize the Instrument object with instrument specific values.
 
     Runs once upon instantiation.
 
@@ -36,7 +39,6 @@ def init(self, test_init_kwarg=None):
         Testing keyword (default=None)
 
     """
-
     logger.info(ackn_str)
     self.acknowledgements = ackn_str
     self.references = refs
@@ -49,7 +51,7 @@ def init(self, test_init_kwarg=None):
 
 
 def clean(self, test_clean_kwarg=None):
-    """Cleaning function
+    """Clean data after load.
 
     Parameters
     ----------
@@ -59,7 +61,6 @@ def clean(self, test_clean_kwarg=None):
         Testing keyword (default=None)
 
     """
-
     self.test_clean_kwarg = test_clean_kwarg
 
     return
@@ -67,7 +68,7 @@ def clean(self, test_clean_kwarg=None):
 
 # Optional method
 def preprocess(self, test_preprocess_kwarg=None):
-    """Customization method that performs standard preprocessing.
+    """Perform standard preprocessing.
 
     This routine is automatically applied to the Instrument object
     on every load by the pysat nanokernel (first in queue). Object
@@ -79,7 +80,6 @@ def preprocess(self, test_preprocess_kwarg=None):
         Testing keyword (default=None)
 
     """
-
     self.test_preprocess_kwarg = test_preprocess_kwarg
 
     return
@@ -88,7 +88,7 @@ def preprocess(self, test_preprocess_kwarg=None):
 def list_files(tag=None, inst_id=None, data_path=None, format_str=None,
                file_date_range=None, test_dates=None, mangle_file_dates=False,
                test_list_files_kwarg=None):
-    """Produce a fake list of files spanning three years
+    """Produce a fake list of files spanning three years.
 
     Parameters
     ----------
@@ -118,7 +118,6 @@ def list_files(tag=None, inst_id=None, data_path=None, format_str=None,
     Series of filenames indexed by file time
 
     """
-
     # Support keyword testing
     logger.info(''.join(('test_list_files_kwarg = ',
                          str(test_list_files_kwarg))))
@@ -150,8 +149,7 @@ def list_remote_files(tag=None, inst_id=None, data_path=None, format_str=None,
                       start=None, stop=None, test_dates=None, user=None,
                       password=None, mangle_file_dates=False,
                       test_list_remote_kwarg=None):
-    """Produce a fake list of files spanning three years and one month to
-    simulate new data files on a remote server
+    """Produce a fake list of files to simulate new files on a remote server.
 
     Parameters
     ----------
@@ -189,8 +187,12 @@ def list_remote_files(tag=None, inst_id=None, data_path=None, format_str=None,
     pds.Series
         Filenames indexed by file time, see list_files for more info
 
-    """
+    Note
+    ----
+    Fake data will span three years and one month, one month longer than the
+    fake local data in list_files.
 
+    """
     # Support keyword testing
     logger.info(''.join(('test_list_remote_kwarg = ',
                          str(test_list_remote_kwarg))))
@@ -213,7 +215,7 @@ def list_remote_files(tag=None, inst_id=None, data_path=None, format_str=None,
 
 def download(date_array, tag, inst_id, data_path=None, user=None,
              password=None, test_download_kwarg=None):
-    """Simple pass function for pysat compatibility for test instruments.
+    """Simulate download of data for test instruments.
 
     This routine is invoked by pysat and is not intended for direct use by the
     end user.
@@ -250,7 +252,6 @@ def download(date_array, tag, inst_id, data_path=None, user=None,
     When no download support will be provided
 
     """
-
     # Support keyword testing
     logger.info(''.join(('test_download_kwarg = ', str(test_download_kwarg))))
 
@@ -269,7 +270,7 @@ def download(date_array, tag, inst_id, data_path=None, user=None,
 
 def generate_fake_data(t0, num_array, period=5820, data_range=[0.0, 24.0],
                        cyclic=True):
-    """Generates fake data over a given range
+    """Generate fake data over a given range.
 
     Parameters
     ----------
@@ -295,7 +296,6 @@ def generate_fake_data(t0, num_array, period=5820, data_range=[0.0, 24.0],
         Array with fake data
 
     """
-
     if cyclic:
         uts_root = np.mod(t0, period)
         data = (np.mod(uts_root + num_array, period)
@@ -307,7 +307,7 @@ def generate_fake_data(t0, num_array, period=5820, data_range=[0.0, 24.0],
 
 
 def generate_times(fnames, num, freq='1S'):
-    """Construct list of times for simulated instruments
+    """Construct list of times for simulated instruments.
 
     Parameters
     ----------
@@ -329,7 +329,6 @@ def generate_times(fnames, num, freq='1S'):
         The requested date reconstructed from the fake file name
 
     """
-
     if isinstance(num, str):
         estr = ''.join(('generate_times support for input strings interpreted ',
                         'as the number of times has been deprecated. Please ',
@@ -366,7 +365,7 @@ def generate_times(fnames, num, freq='1S'):
 
 
 def define_period():
-    """Define the default periods for the fake data functions
+    """Define the default periods for the fake data functions.
 
     Returns
     -------
@@ -378,7 +377,6 @@ def define_period():
     Local time and longitude slightly out of sync to simulate motion of Earth
 
     """
-
     def_period = {'lt': 5820,  # 97 minutes
                   'lon': 6240,  # 104 minutes
                   'angle': 5820}
@@ -387,7 +385,7 @@ def define_period():
 
 
 def define_range():
-    """Define the default ranges for the fake data functions
+    """Define the default ranges for the fake data functions.
 
     Returns
     -------
@@ -395,7 +393,6 @@ def define_range():
         Dictionary of periods to use in test instruments
 
     """
-
     def_range = {'lt': [0.0, 24.0],
                  'lon': [0.0, 360.0],
                  'angle': [0.0, 2.0 * np.pi]}
@@ -404,7 +401,7 @@ def define_range():
 
 
 def eval_dep_warnings(warns, check_msgs):
-    """Evaluate deprecation warnings by category and message
+    """Evaluate deprecation warnings by category and message.
 
     Parameters
     ----------
@@ -420,7 +417,6 @@ def eval_dep_warnings(warns, check_msgs):
         the messages are found and False when they are not
 
     """
-
     # Initialize the output
     found_msgs = [False for msg in check_msgs]
 

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""
+"""Load the instrument modules into pysat.
+
 pysat.instruments is a pysat module that provides
 the interface for pysat to download, load, manage,
 modify and analyze science data.  Each instrument

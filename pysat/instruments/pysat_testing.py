@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Produces fake instrument data for testing.
-"""
+"""Produce fake instrument data for testing."""
 
 import datetime as dt
 import functools
@@ -48,7 +46,7 @@ preprocess = mm_test.preprocess
 def load(fnames, tag=None, inst_id=None, sim_multi_file_right=False,
          sim_multi_file_left=False, root_date=None, malformed_index=False,
          num_samples=None, test_load_kwarg=None):
-    """ Loads the test files
+    """Load the test files.
 
     Parameters
     ----------
@@ -83,7 +81,6 @@ def load(fnames, tag=None, inst_id=None, sim_multi_file_right=False,
         Metadata
 
     """
-
     # Support keyword testing
     logger.info(''.join(('test_load_kwarg = ', str(test_load_kwarg))))
 
