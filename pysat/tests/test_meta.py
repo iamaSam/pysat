@@ -90,7 +90,7 @@ class TestBasics(object):
 
     @pytest.mark.parametrize("input",
                              [float, np.float16, np.float32, np.float64])
-    def test_default_value_from_type_float_inputs(self, input, caplog):
+    def test_default_value_from_type_float_inputs(self, input):
         """Test `MetaLabels.default_values_from_type` with float inputs."""
 
         out = self.meta.labels.default_values_from_type(input)
@@ -100,7 +100,7 @@ class TestBasics(object):
 
     @pytest.mark.parametrize("input",
                              [int, np.int8, np.int16, np.int32, np.int64])
-    def test_default_value_from_type_int_inputs(self, input, caplog):
+    def test_default_value_from_type_int_inputs(self, input):
         """Test `MetaLabels.default_values_from_type` with int inputs."""
 
         out = self.meta.labels.default_values_from_type(input)
